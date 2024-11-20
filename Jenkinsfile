@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        // Update these values with your information
+        // Update these values with your info
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_IMAGE = 'zakariaeazn123/flask-app'
         DOCKER_CREDENTIALS = 'docker-hub-credentials'
