@@ -4,7 +4,7 @@ pipeline {
     environment {
         // Update these values with your information
         DOCKER_REGISTRY = 'docker.io'
-        DOCKER_IMAGE = 'your-dockerhub-username/flask-app'
+        DOCKER_IMAGE = 'zakariaeazn123/flask-app'
         DOCKER_CREDENTIALS = 'docker-hub-credentials'
     }
 
