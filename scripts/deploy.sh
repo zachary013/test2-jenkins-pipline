@@ -15,6 +15,6 @@ docker ps -q --filter "name=flask-app-$ENVIRONMENT" | grep -q . && docker stop f
 docker ps -aq --filter "name=flask-app-$ENVIRONMENT" | grep -q . && docker rm flask-app-$ENVIRONMENT
 
 # Run new container
-docker run -d --name flask-app-$ENVIRONMENT -p $PORT:5000 flask-app:$ENVIRONMENT
+docker run -d --name flask-app-$ENVIRONMENT -p $PORT:5000 ${DOCKER_IMAGE}:$ENVIRONMENT
 
 echo "Deployed flask-app:$ENVIRONMENT on port $PORT"

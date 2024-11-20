@@ -20,9 +20,9 @@ pipeline {
                 script {
                     // Create and activate virtual environment
                     sh '''
-                        python3 -m venv .venv
+                        /usr/bin/python3 -m venv .venv
                         . .venv/bin/activate
-                        pip3 install -r requirements.txt
+                        /usr/bin/python3 -m pip install -r requirements.txt
                     '''
                 }
             }
