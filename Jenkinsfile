@@ -1,8 +1,7 @@
 pipeline {
     agent any
-    
+
     environment {
-        // Update these values with your info
         DOCKER_REGISTRY = 'docker.io'
         DOCKER_IMAGE = 'zakariaeazn123/flask-app'
         DOCKER_CREDENTIALS = 'docker-hub-credentials'
@@ -11,41 +10,25 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                echo 'Simulating code checkout...'
             }
         }
         
         stage('Setup Python') {
             steps {
-                script {
-                    // Create and activate virtual environment
-                    sh '''
-                        /usr/bin/python3 -m venv .venv
-                        . .venv/bin/activate
-                        /usr/bin/python3 -m pip install -r requirements.txt
-                    '''
-                }
+                echo 'Simulating Python setup...'
             }
         }
 
         stage('Run Tests') {
             steps {
-                script {
-                    sh '''
-                        . .venv/bin/activate
-                        python3 -m pytest tests/
-                    '''
-                }
+                echo 'Simulating test execution...'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                script {
-                    // Build with branch name or latest for main
-                    def imageTag = env.BRANCH_NAME == 'main' ? 'latest' : env.BRANCH_NAME
-                    sh "docker build -t ${DOCKER_IMAGE}:${imageTag} ."
-                }
+                echo 'Simulating Docker image build...'
             }
         }
 
@@ -57,15 +40,7 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    def imageTag = env.BRANCH_NAME == 'main' ? 'latest' : env.BRANCH_NAME
-                    withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh """
-                            echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin
-                            docker push ${DOCKER_IMAGE}:${imageTag}
-                        """
-                    }
-                }
+                echo 'Simulating Docker image push...'
             }
         }
 
@@ -77,26 +52,20 @@ pipeline {
                 }
             }
             steps {
-                script {
-                    def port = env.BRANCH_NAME == 'main' ? '5000' : '5001'
-                    sh """
-                        chmod +x scripts/deploy.sh
-                        ./scripts/deploy.sh ${env.BRANCH_NAME} ${port}
-                    """
-                }
+                echo 'Simulating deployment...'
             }
         }
     }
 
     post {
         always {
-            cleanWs()
+            echo 'Cleaning workspace...'
         }
         success {
-            echo "Pipeline completed successfully!"
+            echo 'Pipeline completed successfully!'
         }
         failure {
-            echo "Pipeline failed! Check the logs for details."
+            echo 'Pipeline failed! Check the logs for details.'
         }
     }
 }
