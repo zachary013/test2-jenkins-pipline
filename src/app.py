@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return jsonify({"message": "Hello from Flask!", "status": "success"})
+    return jsonify({"message": "Hello from hodaifa!", "status": "success"})
 
 @app.route('/health')
 def health():
@@ -13,3 +13,4 @@ def health():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+    
